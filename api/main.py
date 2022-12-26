@@ -12,7 +12,7 @@ from PIL import Image
 from .models import super_resolution
 
 
-API_VERSION = "0.2.0"
+API_VERSION = "0.2.1"
 TITLE = "Super-Resolution API"
 DESCRIPTION = """
 **Super-Resolution API** allows you to enhance the quality of your images.
@@ -21,7 +21,7 @@ DESCRIPTION = """
 
 You can improve on several parameters:
 
-- **Resolution**: (*not yet implemented*).
+- **Resolution**: increase image base resolution, minimizing quality loss.
 - **Light**: (*not yet implemented*).
 
 Feel free to explore the interactive examples provided below.
@@ -32,11 +32,13 @@ app = FastAPI(title=TITLE, description=DESCRIPTION, version=API_VERSION)
 
 @app.get("/")
 def root():
+    """General API information."""
     return {"health_check": "OK", "version": API_VERSION}
 
 
 @app.post("/enhance/resolution")
 def enhance_resolution(image: UploadFile):
+    """Produces x4 super-resolution image, given a 64x64 or greater input."""
     low_image = Image.open(image.file)
     high_image = super_resolution.enhance(low_image)
 
