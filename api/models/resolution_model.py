@@ -1,25 +1,19 @@
-"""Implements several machine learning models for image processing."""
+"""Implements a machine learning model for image resolution augmentation."""
 
 import numpy as np
 from PIL import Image
 import tensorflow as tf
 import tensorflow_hub as hub
-from typing import Protocol
-from enum import Enum
-from functools import lru_cache
-
-
-class ImageEnhancer(Protocol):
-    def enhance(self, image: Image.Image) -> Image.Image:
-        ...
 
 
 class ResolutionModel:
+    """Machine learning model for image resolution augmentation."""
+
     def __init__(self) -> None:
         self._model = hub.load("https://tfhub.dev/captain-pool/esrgan-tf2/1")
 
     def enhance(self, image: Image.Image) -> Image.Image:
-        """Performs image resolution augmentation using a machine learning algorithm.
+        """Performs resolution augmentation on given image.
 
         Args:
             image: Low resolution image.
@@ -47,20 +41,6 @@ class ResolutionModel:
         high_output = tf.squeeze(high_output)
         high_output = tf.clip_by_value(high_output, 0, 255)
         high_output = tf.cast(high_output, tf.uint8)
+
         high_image = Image.fromarray(high_output.numpy())
         return high_image
-
-
-class ModelKind(Enum):
-    RESOLUTION = "resolution"
-    LIGHT = "light"
-
-
-_KIND_TO_MODEL: dict[ModelKind, type[ImageEnhancer]] = {
-    ModelKind.RESOLUTION: ResolutionModel,
-}
-
-
-@lru_cache
-def load_model(kind: ModelKind) -> ImageEnhancer:
-    return _KIND_TO_MODEL[kind]()

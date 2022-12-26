@@ -9,10 +9,10 @@ from fastapi.responses import StreamingResponse
 from io import BytesIO
 from PIL import Image
 
-from .models.super_resolution import load_model, ModelKind
+from .models.model_factory import ModelKind, load_model
 
 
-API_VERSION = "0.3.0"
+API_VERSION = "0.3.1"
 TITLE = "Super-Resolution API"
 DESCRIPTION = """
 **Super-Resolution API** allows you to enhance the quality of your images.
