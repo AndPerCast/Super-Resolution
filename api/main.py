@@ -9,10 +9,10 @@ from fastapi.responses import StreamingResponse
 from io import BytesIO
 from PIL import Image
 
-from .models import super_resolution
+from .models.super_resolution import load_model, ModelKind
 
 
-API_VERSION = "0.2.1"
+API_VERSION = "0.3.0"
 TITLE = "Super-Resolution API"
 DESCRIPTION = """
 **Super-Resolution API** allows you to enhance the quality of your images.
@@ -40,7 +40,9 @@ def root():
 def enhance_resolution(image: UploadFile):
     """Produces x4 super-resolution image, given a 64x64 or greater input."""
     low_image = Image.open(image.file)
-    high_image = super_resolution.enhance(low_image)
+    
+    model = load_model(ModelKind.RESOLUTION)
+    high_image = model.enhance(low_image)
 
     stream = BytesIO()
     high_image.save(stream, "JPEG")
