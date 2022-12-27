@@ -6,6 +6,7 @@ from enum import Enum
 from functools import lru_cache
 
 from .resolution_model import ResolutionModel
+from .light_model import LightModel
 
 
 class ImageEnhancer(Protocol):
@@ -26,6 +27,7 @@ class ModelKind(Enum):
 
 _KIND_TO_MODEL: dict[ModelKind, type[ImageEnhancer]] = {
     ModelKind.RESOLUTION: ResolutionModel,
+    ModelKind.LIGHT: LightModel,
 }
 
 

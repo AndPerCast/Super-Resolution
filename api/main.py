@@ -40,8 +40,22 @@ def root():
 def enhance_resolution(image: UploadFile):
     """Produces x4 super-resolution image, given a 64x64 or greater input."""
     low_image = Image.open(image.file)
-    
+
     model = load_model(ModelKind.RESOLUTION)
+    high_image = model.enhance(low_image)
+
+    stream = BytesIO()
+    high_image.save(stream, "JPEG")
+    stream.seek(0)
+    return StreamingResponse(stream, media_type="image/jpeg")
+
+
+@app.post("/enhance/light")
+def enhance_light(image: UploadFile):
+    """Produces x4 super-resolution image, given a 64x64 or greater input."""
+    low_image = Image.open(image.file)
+
+    model = load_model(ModelKind.LIGHT)
     high_image = model.enhance(low_image)
 
     stream = BytesIO()
