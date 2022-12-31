@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Fetch basic example</title>
+</head>
+
+<body>
+  <h1>Fetch basic example</h1>
+
+  <form id="myForm">
+    <input type="file" name="image">
+    <input type="submit">
+  </form>
+
+  <img id="myImage" src="" />
+</body>
+<script>
+
+  /**
+   * Serve this file using a web server of your choice, for instance:
+   * $ python -m http.server --bind localhost 8080
+   * Make sure you deploy it on one of these:
+   *    - http://localhost:5173
+   *    - http://localhost:8080
+   */
+
+  const myForm = document.getElementById("myForm");
+  myForm.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const myImage = document.getElementById("myImage");
+    try {
+      const response = await fetch("http://localhost:8000/enhance/resolution", {
+        method: "POST",
+        body: new FormData(myForm),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error, status = ${response.status}`);
+      }
+
+      const data = await response.blob();
+      myImage.src = URL.createObjectURL(data);
+    } catch (error) {
+      const p = document.createElement("p");
+      p.appendChild(document.createTextNode(`Error: ${error.message}`));
+      document.body.insertBefore(p, myImage);
+    }
+  };
+</script>
+
+</html>

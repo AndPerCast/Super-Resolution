@@ -6,6 +6,7 @@ handle client requests and perform image enhancement operations.
 
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 from PIL import Image
 
@@ -28,6 +29,15 @@ Feel free to explore the interactive examples provided below.
 """
 
 app = FastAPI(title=TITLE, description=DESCRIPTION, version=API_VERSION)
+
+ORIGINS = ["http://localhost:5173", "http://localhost:8080"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
@@ -52,7 +62,7 @@ def enhance_resolution(image: UploadFile):
 
 @app.post("/enhance/light")
 def enhance_light(image: UploadFile):
-    """Produces x4 super-resolution image, given a 64x64 or greater input."""
+    """TODO"""
     low_image = Image.open(image.file)
 
     model = load_model(ModelKind.LIGHT)
