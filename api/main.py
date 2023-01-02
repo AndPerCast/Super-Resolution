@@ -39,6 +39,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+IMAGE_RESPONSES = {
+    200: {
+        "content": {"image/jpeg": {"schema": {"type": "string", "format": "binary"}}},
+        "description": "Enhanced image.",
+    }
+}
+
 
 @app.get("/")
 def root():
@@ -46,7 +53,11 @@ def root():
     return {"health_check": "OK", "version": API_VERSION}
 
 
-@app.post("/enhance/resolution")
+@app.post(
+    "/enhance/resolution",
+    response_class=StreamingResponse,
+    responses=IMAGE_RESPONSES,
+)
 def enhance_resolution(image: UploadFile):
     """Produces x4 super-resolution image, given a 64x64 or greater input."""
     low_image = Image.open(image.file)
@@ -60,7 +71,11 @@ def enhance_resolution(image: UploadFile):
     return StreamingResponse(stream, media_type="image/jpeg")
 
 
-@app.post("/enhance/light")
+@app.post(
+    "/enhance/light",
+    response_class=StreamingResponse,
+    responses=IMAGE_RESPONSES,
+)
 def enhance_light(image: UploadFile):
     """TODO"""
     low_image = Image.open(image.file)

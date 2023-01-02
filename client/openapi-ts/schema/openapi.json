@@ -1,0 +1,182 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Super-Resolution API",
+        "description": "\n**Super-Resolution API** allows you to enhance the quality of your images.\n\n## Features\n\nYou can improve on several parameters:\n\n- **Resolution**: increase image base resolution, minimizing quality loss.\n- **Light**: (*not yet implemented*).\n\nFeel free to explore the interactive examples provided below.\n",
+        "version": "0.3.1"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Root",
+                "description": "General API information.",
+                "operationId": "root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enhance/resolution": {
+            "post": {
+                "summary": "Enhance Resolution",
+                "description": "Produces x4 super-resolution image, given a 64x64 or greater input.",
+                "operationId": "enhance_resolution_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_enhance_resolution_enhance_resolution_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Enhanced image.",
+                        "content": {
+                            "image/jpeg": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enhance/light": {
+            "post": {
+                "summary": "Enhance Light",
+                "description": "TODO",
+                "operationId": "enhance_light_post",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_enhance_light_enhance_light_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_enhance_light_enhance_light_post": {
+                "title": "Body_enhance_light_enhance_light_post",
+                "required": [
+                    "image"
+                ],
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "title": "Image",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
+            "Body_enhance_resolution_enhance_resolution_post": {
+                "title": "Body_enhance_resolution_enhance_resolution_post",
+                "required": [
+                    "image"
+                ],
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "title": "Image",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
