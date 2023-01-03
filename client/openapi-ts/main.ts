@@ -2,12 +2,14 @@
  * Example of using openapi client for a REST API.
  */
 
-import { DefaultService, ApiError } from './client'
+import { OpenAPI, DefaultService, ApiError } from './client'
+
+OpenAPI.BASE = 'http://127.0.0.1:8000';
 
 async function main() {
   try {
-    const inputImage: Blob = new Blob();
-    const outputImage: Blob = await DefaultService.enhanceResolutionPost({
+    const inputImage = new Blob();
+    const outputImage = await DefaultService.enhanceResolutionPost({
       image: inputImage
     });
   } catch (error) {

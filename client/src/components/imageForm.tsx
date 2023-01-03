@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import axios from 'axios';
+import ReactBeforeSliderComponent from 'react-before-after-slider-component';
+import 'react-before-after-slider-component/dist/build.css';
 import './imageForm.scss';
 
 export const ImageForm = () => {
@@ -11,66 +12,37 @@ export const ImageForm = () => {
     }
   };
 
-  const [enhancedImage, setEnhancedImage] = useState<string | ArrayBuffer | null>(null);
-  const handleImageUpload = () => {
-    console.log('response');
-    if(!image)
+  const [enhancedImage, setEnhancedImage] = useState<string>('');
+  const handleImageUpload = async () => {
+    if (!image)
       return;
 
+    /**
+     * TODO
+     * - Poner try-catch y mostrar error de forma visual.
+     * - Botón de descarga.
+     * - Indicar que imagen izquierda es original y derecha es mejorada.
+     * - Seleccionar tipo de operación (luz, resolución, etc).
+     */
     const fd = new FormData();
-    fd.append("image", image);
-    fetch('http://localhost:8000/enhance/resolution', {
+    fd.append('image', image);
+    const response = await fetch('http://localhost:8000/enhance/resolution', {
       method: 'POST',
       body: fd,
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error, status = ${response.status}`);
-      }
-      return response.blob();
-    })
-    .then((myBlob) => {
-      const objectURL = URL.createObjectURL(myBlob);
-      // myImage.src = objectURL;
-      console.log(myBlob)
-    })
-    // axios.post('http://localhost:8000').then(response => console.log(response));
-    // return axios.post('http://localhost:8000/enhance/resolution', image, {
-    //   headers : {
-    //     'Content-Type': 'multipart/form-data'
-    //   },
-    //   responseType: 'blob',
-    // })
-    // .then(response => {
-    //   console.log(response);
-    //   setEnhancedImage(URL.createObjectURL(response.data));
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
-    // return axios({
-    //   method: 'post',
-    //   url: 'http://localhost:8000/enhance/resolution',
-    //   data: image,
-    //   headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'multipart/form-data'
-    //   },
-    // })
-    // .then(response => {
-    //     console.log(response);
-    // })
-    // .catch(error => {
-    //     console.error(error);
-    // });
-    
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error, status = ${response.status}`);
+    }
+
+    const data = await response.blob();
+    setEnhancedImage(URL.createObjectURL(data));
   };
 
   return (
     <div className="image-form">
       <input type="file" onChange={handleImageChange} />
       <button onClick={handleImageUpload}>Upload</button>
-      <img src={URL.createObjectURL(image as Blob)} alt="image" />
+      <ReactBeforeSliderComponent firstImage={{ imageUrl: enhancedImage }} secondImage={{ imageUrl: image ? URL.createObjectURL(image) : '' }} />
     </div>
   );
 };
