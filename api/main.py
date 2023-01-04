@@ -13,7 +13,7 @@ from PIL import Image
 from .models.model_factory import ModelKind, load_model
 
 
-API_VERSION = "0.3.1"
+API_VERSION = "0.4.1"
 TITLE = "Super-Resolution API"
 DESCRIPTION = """
 **Super-Resolution API** allows you to enhance the quality of your images.
@@ -23,7 +23,7 @@ DESCRIPTION = """
 You can improve on several parameters:
 
 - **Resolution**: increase image base resolution, minimizing quality loss.
-- **Light**: (*not yet implemented*).
+- **Light**: improve light quality of your image.
 
 Feel free to explore the interactive examples provided below.
 """
@@ -77,13 +77,13 @@ def enhance_resolution(image: UploadFile):
     responses=IMAGE_RESPONSES,
 )
 def enhance_light(image: UploadFile):
-    """TODO"""
-    low_image = Image.open(image.file)
+    """Produces a brighter image, given a 256x256 or lower input."""
+    dark_image = Image.open(image.file)
 
     model = load_model(ModelKind.LIGHT)
-    high_image = model.enhance(low_image)
+    bright_image = model.enhance(dark_image)
 
     stream = BytesIO()
-    high_image.save(stream, "JPEG")
+    bright_image.save(stream, "JPEG")
     stream.seek(0)
     return StreamingResponse(stream, media_type="image/jpeg")

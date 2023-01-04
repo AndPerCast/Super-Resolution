@@ -1,0 +1,19 @@
+div.navbar {
+  background-color: #9fb8adff;
+  font-family: "Lexend";
+  font-weight: 600;
+  font-size: 1vw;
+  padding-left: 1vw;
+}
+
+/* lexend-regular - latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+    url('../fonts/lexend-v17-latin-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/lexend-v17-latin-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
