@@ -1,0 +1,40 @@
+div.HomeWrapper {
+  background-color: #e6e8e6ff;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Lexend';
+}
+
+div.Home {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+h1, h2 {
+  color: #3f403f;
+}
+
+h1 {
+  font-weight: 400;
+  margin-top: 1rem;
+  font-size: 3rem;
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+div.Home > img {
+  margin: 2rem;
+  width: 30%;
+  height: 30%;
+  object-fit: cover;
+}

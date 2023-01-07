@@ -12,6 +12,9 @@ div.image-form {
 }
 
 div.image-form>Button {
+  width: 6rem;
+  height: 3rem;
+  border-radius: 1rem;
   background-color: #9fb8adff;
   color: #3f403f;
   font-weight: 800;
@@ -21,4 +24,5 @@ div.before-after {
   max-width: 50vw;
   max-height: 50vh;
   border-style: dashed;
+  border-color: #3f403f;
 }

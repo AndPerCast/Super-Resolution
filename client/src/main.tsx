@@ -1,10 +1,60 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.scss';
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ReactDOM from "react-dom/client";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const Home = lazy(() => import("./home"));
+const About = lazy(() => import("./about"));
+const SuperResolution = lazy(() => import("./super-resolution"));
+const IlluminationEnhancer = lazy(() => import("./illumination-enhancer"));
+
+// export const linksIndex = {
+//   Home: "/#",
+//   About: "/about",
+//   "Resolution Models": {
+//     "Super Resolution": "/super-resolution",
+//     "Illumination Enhancer": "/illumination-enhancer",
+//   },
+// };
+
+interface LinkIndex {
+  path: string;
+  component: React.FC;
+}
+
+const linksIndex: { [key: string]: LinkIndex } = {
+  Home: {
+    path: "/home",
+    component: Home,
+  },
+  About: {
+    path: "/about",
+    component: About,
+  },
+  "Super Resolution": {
+    path: "/super-resolution",
+    component: SuperResolution,
+  },
+  "Illumination Enhancer": {
+    path: "/illumination-enhancer",
+    component: IlluminationEnhancer,
+  },
+};
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {Object.entries(linksIndex).map(([name, link]) => {
+            return (
+              <Route key={name} path={link.path} element={<link.component />} />
+            );
+          })}
+        </Routes>
+      </Suspense>
+    </Router>
+    {/* <Home /> */}
   </React.StrictMode>
 );
+
+export default linksIndex;
