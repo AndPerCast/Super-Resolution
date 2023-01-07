@@ -1,6 +1,6 @@
 import { ImageForm } from "./components/image-form";
 import { Navbar } from "./components/navigation/navbar";
-import "./Illumination-Enhancer.scss";
+import "./illumination-enhancer.scss";
 
 function IlluminationEnhancer() {
   return (
