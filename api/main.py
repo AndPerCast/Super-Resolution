@@ -87,7 +87,7 @@ def enhance_resolution(image: UploadFile):
     responses=IMAGE_RESPONSES,
 )
 def enhance_light(image: UploadFile):
-    """Produces a brighter image, given a 256x256 or lower input."""
+    """Produces a brighter image, given a 256x256 or greater input."""
     dark_image = Image.open(image.file, formats=VALID_IMAGE_FORMATS)
 
     model = load_model(ModelKind.LIGHT)
@@ -104,7 +104,7 @@ def enhance_light(image: UploadFile):
     responses=IMAGE_RESPONSES,
 )
 def enhance_light(image: UploadFile):
-    """Produces a less noisy image, given a 256x256 or lower input."""
+    """Produces a less noisy image, given a 256x256 or greater input."""
     noisy_image = Image.open(image.file, formats=VALID_IMAGE_FORMATS)
 
     model = load_model(ModelKind.NOISE)

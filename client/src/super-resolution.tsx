@@ -5,8 +5,10 @@ import "./super-resolution.scss";
 const SuperResolutionForm = () => {
   return ImageForm({
     processingLink: "http://localhost:8000/enhance/resolution",
-    imageWidth: 1500,
-    imageHeight: 600,
+    maxImageDimensions: {
+      width: 1500,
+      height: 600,
+    },
     imageSize: 1_000_000,
   });
 };

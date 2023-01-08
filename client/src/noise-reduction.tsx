@@ -5,9 +5,19 @@ import "./illumination-enhancer.scss";
 const NoiseReductionForm = () => {
   return ImageForm({
     processingLink: "http://localhost:8000/enhance/noise",
-    imageWidth: 256,
-    imageHeight: 256,
-    imageSize: 250_000,
+    minImageDimensions: {
+      width: 256,
+      height: 256,
+    },
+    maxImageDimensions: {
+      width: 800,
+      height: 600,
+    },
+    imageSize: 500_000,
+    outputDimensions: {
+      width: 256,
+      height: 256,
+    },
   });
 };
 

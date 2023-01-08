@@ -4,11 +4,16 @@ import "react-before-after-slider-component/dist/build.css";
 import { LoadingCamera } from "./loading-camera";
 import "./image-form.scss";
 
+interface ImageDimensions {
+  width: number;
+  height: number;
+}
 export interface ImageFormProps {
   processingLink: string;
-  imageWidth: number;
-  imageHeight: number;
+  minImageDimensions?: ImageDimensions;
+  maxImageDimensions: ImageDimensions;
   imageSize: number;
+  outputDimensions?: ImageDimensions;
 }
 
 export const ImageForm = (props: ImageFormProps) => {
@@ -24,11 +29,19 @@ export const ImageForm = (props: ImageFormProps) => {
       const width = img.naturalWidth;
       const height = img.naturalHeight;
       if (
-        width > props.imageWidth ||
-        height > props.imageHeight ||
+        width > props.maxImageDimensions.width ||
+        height > props.maxImageDimensions.height ||
         image.size > props.imageSize
       ) {
-        setCurrentError("imageSizeError");
+        setCurrentError("imageMaxSizeError");
+        return false;
+      }
+      if (
+        props.minImageDimensions &&
+        (width < props.minImageDimensions.width ||
+          height < props.minImageDimensions.height)
+      ) {
+        setCurrentError("imageMinSizeError");
         return false;
       }
       URL.revokeObjectURL(img.src);
@@ -45,6 +58,7 @@ export const ImageForm = (props: ImageFormProps) => {
     }
   };
 
+  const [imageToShow, setImageToShow] = useState<string>("");
   const [enhancedImage, setEnhancedImage] = useState<string>("");
   const handleImageUpload = async () => {
     try {
@@ -65,6 +79,7 @@ export const ImageForm = (props: ImageFormProps) => {
       }
       const data = await response.blob();
       setEnhancedImage(URL.createObjectURL(data));
+      cropImage();
       setCurrentState("done");
     } catch (e) {
       setCurrentState("initial");
@@ -77,6 +92,39 @@ export const ImageForm = (props: ImageFormProps) => {
     a.href = enhancedImage;
     a.download = "enhanced-image.jpeg";
     a.click();
+  };
+
+  const cropImage = () => {
+    if (props.outputDimensions === undefined) {
+      setImageToShow(URL.createObjectURL(image as Blob));
+      return;
+    }
+    // crop the center of the image with 256 x 256 size
+    const inputImage = new Image();
+    inputImage.src = URL.createObjectURL(image as Blob);
+    new Promise((resolve) => {
+      inputImage.onload = () => {
+        // aquí hacemos el crop
+        const canvas = document.createElement("canvas");
+        canvas.width = props.outputDimensions.width;
+        canvas.height = props.outputDimensions.height;
+        const context = canvas.getContext("2d");
+        if (context === null) throw new Error("context is null");
+        context.drawImage(
+          inputImage,
+          (inputImage.width - props.outputDimensions.width) / 2,
+          (inputImage.height - props.outputDimensions.height) / 2,
+          props.outputDimensions.width,
+          props.outputDimensions.height,
+          0,
+          0,
+          props.outputDimensions.width,
+          props.outputDimensions.height
+        );
+        resolve(true);
+        setImageToShow(canvas.toDataURL("image/jpeg"));
+      };
+    });
   };
 
   interface State {
@@ -105,7 +153,7 @@ export const ImageForm = (props: ImageFormProps) => {
         <div className="before-after-slider">
           <ReactBeforeSliderComponent
             firstImage={{ imageUrl: enhancedImage }}
-            secondImage={{ imageUrl: image ? URL.createObjectURL(image) : "" }}
+            secondImage={{ imageUrl: imageToShow }}
           />
         </div>
       ),
@@ -119,10 +167,17 @@ export const ImageForm = (props: ImageFormProps) => {
   };
   const errors: { [key: string]: JSX.Element } = {
     none: <></>,
-    imageSizeError: (
+    imageMaxSizeError: (
       <p>
-        Image is too big! Please upload an image with maximum {props.imageWidth}{" "}
-        x {props.imageHeight} and maximum {props.imageSize / 1_000_000}MB
+        Image is too big! Please upload an image with maximum{" "}
+        {props.maxImageDimensions.width} x {props.maxImageDimensions.height} and
+        maximum {props.imageSize / 1_000_000}MB
+      </p>
+    ),
+    imageMinSizeError: (
+      <p>
+        Image is too small! Please upload an image with minimum{" "}
+        {props.minImageDimensions?.width} x {props.minImageDimensions?.height}
       </p>
     ),
     imageFormatError: (

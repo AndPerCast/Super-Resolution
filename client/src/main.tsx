@@ -27,10 +27,6 @@ const linksIndex: { [key: string]: LinkIndex } = {
     path: "/home",
     component: Home,
   },
-  About: {
-    path: "/about",
-    component: About,
-  },
   "Super Resolution": {
     path: "/super-resolution",
     component: SuperResolution,
@@ -42,6 +38,10 @@ const linksIndex: { [key: string]: LinkIndex } = {
   "Noise Reduction": {
     path: "/noise-reduction",
     component: NoiseReduction,
+  },
+  About: {
+    path: "/about",
+    component: About,
   },
 };
 
