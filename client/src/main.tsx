@@ -8,15 +8,6 @@ const SuperResolution = lazy(() => import("./super-resolution"));
 const IlluminationEnhancer = lazy(() => import("./illumination-enhancer"));
 const NoiseReduction = lazy(() => import("./noise-reduction"));
 
-// export const linksIndex = {
-//   Home: "/#",
-//   About: "/about",
-//   "Resolution Models": {
-//     "Super Resolution": "/super-resolution",
-//     "Illumination Enhancer": "/illumination-enhancer",
-//   },
-// };
-
 interface LinkIndex {
   path: string;
   component: React.FC;
