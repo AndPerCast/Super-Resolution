@@ -6,6 +6,7 @@ const Home = lazy(() => import("./home"));
 const About = lazy(() => import("./about"));
 const SuperResolution = lazy(() => import("./super-resolution"));
 const IlluminationEnhancer = lazy(() => import("./illumination-enhancer"));
+const NoiseReduction = lazy(() => import("./noise-reduction"));
 
 // export const linksIndex = {
 //   Home: "/#",
@@ -37,6 +38,10 @@ const linksIndex: { [key: string]: LinkIndex } = {
   "Illumination Enhancer": {
     path: "/illumination-enhancer",
     component: IlluminationEnhancer,
+  },
+  "Noise Reduction": {
+    path: "/noise-reduction",
+    component: NoiseReduction,
   },
 };
 

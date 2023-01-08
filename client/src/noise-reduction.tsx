@@ -2,26 +2,26 @@ import { ImageForm } from "./components/image-form";
 import { Navbar } from "./components/navigation/navbar";
 import "./illumination-enhancer.scss";
 
-const IlluminationEnhancerForm = () => {
+const NoiseReductionForm = () => {
   return ImageForm({
-    processingLink: "http://localhost:8000/enhance/light",
+    processingLink: "http://localhost:8000/enhance/noise",
     imageWidth: 256,
     imageHeight: 256,
     imageSize: 250_000,
   });
 };
 
-function IlluminationEnhancer() {
+function NoiseReduction() {
   return (
-    <div className="IlluminationEnhancer">
+    <div className="NoiseReduction">
       <link
         href="https://fonts.googleapis.com/css?family=Lexend"
         rel="stylesheet"
       />
       <Navbar />
-      <IlluminationEnhancerForm />
+      <NoiseReductionForm />
     </div>
   );
 }
 
-export default IlluminationEnhancer;
+export default NoiseReduction;

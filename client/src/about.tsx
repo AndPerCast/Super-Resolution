@@ -17,43 +17,82 @@ export default function About() {
         <div className="Contact">
           <div className="contact_item_wrapper">
             <div className="contact_item">
-              <div className="contact_item_label">Support</div>
-              <div className="contact_item_big">help@coolors.co</div>
+              <div className="contact_item_label">Daniel García Hernández</div>
+              <div className="contact_item_big">danielgarciaher2@gmail.com</div>
               <div className="contact_item_p">
-                You can also have a look at our{" "}
                 <a
-                  href="https://help.coolors.co"
+                  href="https://github.com/Hummus-1"
                   target="_blank"
                   className="link link--primary link--hover-underlined"
                 >
-                  Help Center
+                  Github
                 </a>
-                .
               </div>
             </div>
           </div>
           <div className="contact_item_wrapper">
             <div className="contact_item">
-              <div className="contact_item_label">Info</div>
-              <div className="contact_item_big">info@coolors.co</div>
+              <div className="contact_item_label">Diego Pérez García</div>
+              <div className="contact_item_big">
+                diego.perez.garcia.31@ull.edu.es
+              </div>
               <div className="contact_item_p">
-                Drop us a line if you have suggestions.
+                <a
+                  href="https://github.com/DiegoPerezGarcia"
+                  target="_blank"
+                  className="link link--primary link--hover-underlined"
+                >
+                  Github
+                </a>
               </div>
             </div>
           </div>
           <div className="contact_item_wrapper">
             <div className="contact_item">
-              <div className="contact_item_label">About</div>
-              <div className="contact_item_big">Made by Fabrizio Bianchi</div>
-              {/* <div className="contact_item_p">Created during a weekend as <a href="/old/index.html" className="link link--primary link--hover-underlined">personal project</a>,<br>it's now the essential tool for millions of amazing creatives.</div> */}
+              <div className="contact_item_label">Andrés Pérez Castellano</div>
+              <div className="contact_item_big">andres.perez.11@ull.edu.es</div>
+              <div className="contact_item_p">
+                <a
+                  href="https://github.com/AndPerCast"
+                  target="_blank"
+                  className="link link--primary link--hover-underlined"
+                >
+                  Github
+                </a>
+              </div>
             </div>
           </div>
           <div className="contact_item_wrapper">
             <div className="contact_item">
-              <div className="contact_item_label">Company</div>
-              <div className="contact_item_big">Coolors srl</div>
+              <div className="contact_item_label">
+                ISAS Project Information Links
+              </div>
               <div className="contact_item_p">
-                Piazza R. Gaucci, 23, 00034, Colleferro, Rome, Italy
+                <a
+                  href="https://github.com/AndPerCast/Super-Resolution"
+                  target="_blank"
+                  className="link link--primary link--hover-underlined"
+                >
+                  Github
+                </a>
+              </div>
+              <div className="contact_item_p">
+                <a
+                  href="http://localhost:8000/docs"
+                  target="_blank"
+                  className="link link--primary link--hover-underlined"
+                >
+                  Documentation
+                </a>
+              </div>
+              <div className="contact_item_p">
+                <a
+                  href="https://docs.google.com/presentation/d/1iuh485jhGpY3RU70Li5k4uHNBh6R92S2Sl1GCvbN6iI/edit?usp=sharing"
+                  target="_blank"
+                  className="link link--primary link--hover-underlined"
+                >
+                  Slides
+                </a>
               </div>
             </div>
           </div>

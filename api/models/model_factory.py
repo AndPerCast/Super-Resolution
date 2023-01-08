@@ -7,6 +7,7 @@ from functools import lru_cache
 
 from .resolution_model import ResolutionModel
 from .light_model import LightModel
+from .noise_model import NoiseModel
 
 
 class ImageEnhancer(Protocol):
@@ -23,11 +24,13 @@ class ModelKind(Enum):
 
     RESOLUTION = "resolution"
     LIGHT = "light"
+    NOISE = "noise"
 
 
 _KIND_TO_MODEL: dict[ModelKind, type[ImageEnhancer]] = {
     ModelKind.RESOLUTION: ResolutionModel,
     ModelKind.LIGHT: LightModel,
+    ModelKind.NOISE: NoiseModel,
 }
 
 
