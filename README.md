@@ -4,6 +4,8 @@ Image Super-Resolution as a service
 
 ## Installation guide
 
+### Server
+
 Make sure you have `Python` installed on your system. This project has been
 developed under `3.10` version.
 
@@ -42,3 +44,19 @@ uvicorn api.main:app --host 127.0.0.1 --port 8000
 ```
 
 Visit http://127.0.0.1:8000/docs to learn more about the API.
+
+### Client
+
+Make sure you have `Node` installed on your system. This project has been
+developed under `17.6.0` version. You will also need `npm` `8.9.0` or higher.
+
+You can run the following commands to install all the dependencies needed
+```bash
+cd client
+npm i
+```
+
+To launch the server locally, execute the following command:
+```bash
+npm run dev
+```
