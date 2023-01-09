@@ -49,7 +49,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </Routes>
       </Suspense>
     </Router>
-    {/* <Home /> */}
   </React.StrictMode>
 );
 
